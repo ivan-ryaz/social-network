@@ -1,0 +1,60 @@
+<!-- messages.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Социальная сеть - Входящие</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Главная</a></li>
+                <li><a href="{{ url_for('new_message') }}">Написать</a></li>
+                <li><a href="{{ url_for('messages') }}">Чаты</a></li>
+                <li><a href="{{ url_for('logout') }}">Выйти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container1">
+        <h1>Сообщения</h1>
+        <table class="table1">
+            <thead>
+            <tr>
+                <th>От:</th>
+                <th>Кому:</th>
+                <th>Сообщение:</th>
+                <th>Дата:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for chat in chats %}
+            {% if chat.sender_id == current_user.id %}
+            {% set user_id = chat.recipient_id %}
+            {% set sender = current_user %}
+            {% set recipient = User.query.get(user_id) %}
+            {% else %}
+            {% set user_id = chat.sender_id %}
+            {% set sender = User.query.get(user_id) %}
+            {% set recipient = current_user %}
+            {% endif %}
+            <tr>
+                <td>{{ sender.username }}</td>
+                <td>{{ recipient.username }}</td>
+                <td>{{ chat.body }}</td>
+                <td>{{ chat.timestamp }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Messages</p>
+    </footer>
+</body>
+</html>

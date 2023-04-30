@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Главная</a></li>
+          <li><a href="{{ url_for('login') }}">Вход</a></li>
+          <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container center">
+      <form method="post" action="{{ url_for('login') }}">
+        <h2>Вход</h2>
+        <label for="username">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+            <div>
+      <button type="submit">Войти</button>
+    </div>
+      </form>
+      <br>
+      <p>Еще не зарегистрированы? <a href="{{ url_for('register') }}">Зарегистрируйтесь здесь</a>.</p>
+    </div>
+    <footer>
+      <p>&copy; Социальная сеть, 2023</p>
+    </footer>
+  </body>
+</html>
